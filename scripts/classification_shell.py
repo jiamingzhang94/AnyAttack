@@ -12,7 +12,7 @@ for m in methods:
         print("---------------------------------------------------")
         print(f"method: {m}, Dataset: {datasets[i]}, Image Path: {datasets[i]}/{m} ")
         command = (
-            f"python ve.py "
+            f"python classification.py "
             f"--cache_path {DATASET} "
             f"--cfg_path lavis_tool/blip2/ve_snlive_vicuna7b_instruct_eval.yaml "
             f"--image_path {PROJECT_PATH}/outputs/snli_ve/{m} "

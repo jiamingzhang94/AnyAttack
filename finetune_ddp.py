@@ -225,7 +225,7 @@ if __name__ == "__main__":
     parser.add_argument("--lr", type=float, default=1e-4)
     parser.add_argument("--checkpoint", type=str, default='checkpoints/pre-trained.pt', help="path to checkpoint to load")
     parser.add_argument("--criterion", type=str, default='BiContrastiveLoss')
-    parser.add_argument("--imagenet", type=str, default='datasets/ILSVRC2012/val')
+    parser.add_argument("--imagenet", type=str)
     parser.add_argument("--cache_path", type=str, default='datasets')
     args = parser.parse_args()
 

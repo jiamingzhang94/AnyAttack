@@ -4,6 +4,7 @@
 export MASTER_PORT=23456
 export OMP_NUM_THREADS=2
 export CUDA_VISIBLE_DEVICES=0,1
+export DATASET_BASE_PATH="your_datasets"
 
 NUM_GPUS=$(echo $CUDA_VISIBLE_DEVICES | tr ',' '\n' | wc -l)
 
@@ -18,4 +19,5 @@ torchrun --nproc_per_node=${NUM_GPUS} --master_port=${MASTER_PORT} finetune_ddp.
     --dataset='coco_retrieval' \
     --criterion='BiContrastiveLoss' \
     --checkpoint='checkpoints/pre-trained.pt' \
-    --data_dir='datasets/coco/mscoco/' \
+    --data_dir="${DATASET_BASE_PATH}/mscoco" \
+    --imagenet="${DATASET_BASE_PATH}/ILSVRC2012/train/"
