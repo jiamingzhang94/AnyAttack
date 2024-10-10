@@ -1,0 +1,23 @@
+model:
+  arch: minigpt4
+  model_type: pretrain_vicuna0
+  max_txt_len: 160
+  end_sym: "###"
+  low_resource: True
+  llama_model: '/mnt/sdc1/ModelWarehouse/Llama-2-7b-chat-hf'
+  prompt_template: '###Human: {} ###Assistant:'
+  ckpt: "/mnt/sdc1/junhong/proj/text_guide_attack/cache/prerained_minigpt4_7b.pth"
+
+
+datasets:
+  cc_sbu_align:
+    vis_processor:
+      train:
+        name: "blip2_image_eval"
+        image_size: 224
+    text_processor:
+      train:
+        name: "blip_caption"
+
+run:
+  task: image_text_pretrain
