@@ -106,7 +106,7 @@ if __name__ == '__main__':
         decoder.load_state_dict(new_state_dict)
 
     imagenet_data = ImageFolder(args.clean_image_path, transform=eval_transform)
-    target_data = ImageTextDataset(args.target_caption, args.target_image_path, args.image_only, transform=eval_transform)
+    target_data = ImageTextDataset(args.target_caption, args.target_image_path, transform=eval_transform)
 
     data_loader_imagenet = torch.utils.data.DataLoader(imagenet_data, batch_size=args.batch_size, shuffle=False,
                                                        num_workers=8)
