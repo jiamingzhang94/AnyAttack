@@ -1,6 +1,66 @@
+import os
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+import torchvision.transforms as transforms
+import models.clip as clip
+
+
+class CLIPEncoder(nn.Module):
+    def __init__(self, model="ViT-B/32"):
+        """
+        CLIP Image Encoder using the official CLIP implementation.
+
+        Args:
+            model (str): The model name. Supported models are:
+                "ViT-B/32", "ViT-B/16", "ViT-L/14", "ViT-L/14@336px",
+                "RN50", "RN101", "RN50x4", "RN50x16", "RN50x64".
+        """
+        super(CLIPEncoder, self).__init__()
+        self.model, _ = clip.load(model, "cpu")
+        self.model.eval()  # Set the model to evaluation mode
+
+    def encode_img(self, images):
+        """
+        Forward pass for the CLIP image encoder.
+
+        Args:
+            images (torch.Tensor): A batch of images with shape (batch_size, 3, height, width).
+                                   The images should be in the range [0, 1].
+
+        Returns:
+            torch.Tensor: Image embeddings with shape (batch_size, 512).
+        """
+        assert images.ndim == 4 and images.shape[
+            1] == 3, "Input images should have shape (batch_size, 3, height, width)"
+        # normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+        normalize = transforms.Normalize(mean=[0.48145466, 0.4578275, 0.40821073], std=[0.26862954, 0.26130258, 0.27577711])
+        images = normalize(images)
+
+        image_features = self.model.encode_image(images)
+        return image_features
+
+    def encode_text(self, texts, device):
+        """
+        Forward pass for the CLIP text encoder.
+
+        Args:
+            texts (list): A list of strings to encode.
+
+        Returns:
+            torch.Tensor: Text embeddings with shape (batch_size, 512).
+        """
+        text_tokens = clip.tokenize(texts, truncate=True).to(device)
+        text_features = self.model.encode_text(text_tokens)
+        return text_features
+
+
+
+def get_group_norm(num_channels, num_groups=32):
+    if num_channels < num_groups:
+        return nn.GroupNorm(num_groups=num_channels, num_channels=num_channels)
+    return nn.GroupNorm(num_groups=min(num_groups, num_channels), num_channels=num_channels)
+
 
 class EfficientAttention(nn.Module):
     def __init__(self, in_channels, key_channels, head_count, value_channels):
@@ -39,6 +99,7 @@ class EfficientAttention(nn.Module):
 
         return attention
 
+
 class ResBlock(nn.Module):
     def __init__(self, in_channels, out_channels, key_channels, head_count, value_channels):
         super(ResBlock, self).__init__()
@@ -62,6 +123,7 @@ class ResBlock(nn.Module):
         out += residual
         return self.activation(out)
 
+
 class UpBlock(nn.Module):
     def __init__(self, in_channels, out_channels):
         super(UpBlock, self).__init__()
@@ -74,6 +136,7 @@ class UpBlock(nn.Module):
         x = self.up(x)
         x = self.activation(self.bn(self.conv(x)))
         return x
+
 
 class Decoder(nn.Module):
     def __init__(self, embed_dim=1024, img_channels=3, img_size=224):
@@ -111,4 +174,3 @@ class Decoder(nn.Module):
         img = self.final_conv(out)
         return img
 
-    

@@ -7,8 +7,7 @@ from torchvision import transforms
 import torch.nn.functional as F
 from torch.cuda.amp import autocast, GradScaler
 from torch.optim.lr_scheduler import CosineAnnealingWarmRestarts
-from models.ae_official import CLIPEncoder
-from models.decoder_gpt4o import Decoder
+from models.model import CLIPEncoder, Decoder
 import torch.distributed as dist
 from torch.utils.data import DataLoader
 from torch.nn.parallel import DistributedDataParallel as DDP
