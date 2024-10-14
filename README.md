@@ -1,6 +1,6 @@
 # AnyAttack: Official Code for "[AnyAttack: Towards Large-scale Self-supervised Generation of Targeted Adversarial Examples for Vision-Language Models](https://arxiv.org/abs/2410.05346)"
 
-This repository provides the official implementation of the paper "AnyAttack: Towards Large-scale Self-supervised Generation of Targeted Adversarial Examples for Vision-Language Models." Our method demonstrates high effectiveness across a wide range of commercial Vision-Language Models (VLMs), including GPT-4V, Claude 3, and Gemini.
+This repository provides the official implementation of the paper "AnyAttack: Towards Large-scale Self-supervised Generation of Targeted Adversarial Examples for Vision-Language Models." Our method demonstrates high effectiveness across a wide range of commercial Vision-Language Models (VLMs).
 
 ![Example Results](example.jpg)
 *Figure: AnyAttack results on various commercial VLMs*
