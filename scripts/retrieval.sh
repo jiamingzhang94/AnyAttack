@@ -5,7 +5,7 @@ export TORCH_HOME=/home/.cache/
 # Define base paths through environment variables
 export PROJECT_PATH="your_project_path"
 
-DATA=/home/dycpu6_8tssd1/jmzhang/datasets/
+DATA= "your_dataset_path"
 backbones=("vitb16" "vitl14" "vitl14x336")
 
 #datasets=("coco_retrieval" "flickr30k")
