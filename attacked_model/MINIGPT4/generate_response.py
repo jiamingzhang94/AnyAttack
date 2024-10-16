@@ -1,7 +1,5 @@
 import argparse
 import os
-# os.environ["CUDA_VISIBLE_DEVICES"] = "2"
-os.environ['TORCH_HOME'] = '/home/dycpu6_8tssd1/jmzhang/.cache/'
 import random
 
 import numpy as np
@@ -50,9 +48,6 @@ def initialize_model(cfg):
     # ========================================
     #             Model Initialization
     # ========================================
-    # cfg = Config(args)
-
-    # setup_seeds(cfg)
     setup_seeds_another(42)
 
     model_config = cfg.model_cfg
@@ -116,16 +111,14 @@ def chat_with_image_path_and_question(chat, CONV_VISION, image_path, query):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     # minigpt-4
-    parser.add_argument("--cfg_path", default="minigpt4_eval.yaml", help="path to configuration file.")
-    # parser.add_argument("--gpu_id", type=int, default=0, help="specify the gpu to load the model.")
-    parser.add_argument("--data_path", default="/mnt/sdc1/junhong/proj/dataset/coco/annotations/coco_karpathy_test.json", type=str)
-    parser.add_argument("--image_path", default="/mnt/sdc1/junhong/proj/dataset/ms_coco/coco/images", type=str)
-    parser.add_argument("--gt_path", default="/mnt/sdc1/junhong/proj/dataset/coco_gt/coco_karpathy_test_gt.json",
-                        help="path to the ground truth file.")
-    parser.add_argument("--llama_path",default='/mnt/sdc1/ModelWarehouse/Llama-2-7b-chat-hf',help="path to the llama model.")
+    parser.add_argument("--cfg_path", default="minigpt4_eval.yaml")
+    parser.add_argument("--data_path", default="coco/annotations/coco_karpathy_test.json", type=str)
+    parser.add_argument("--image_path", default="ms_coco", type=str)
+    parser.add_argument("--gt_path", default="coco_karpathy_test_gt.json")
+    parser.add_argument("--llama_path",default='Llama-2-7b-chat-hf')
     parser.add_argument("--ckpt_path",help="path to the adapter path")
-    parser.add_argument("--output_path", default="Describe this image in detail.json", type=str, help='the folder name that restore your outputs')
-    parser.add_argument("--prompt",default="Describe this image in one sentence",type=str)
+    parser.add_argument("--output_path", default="outputs/result.json", type=str)
+    parser.add_argument("--prompt",default="Describe this image in one short sentence only.",type=str)
     parser.add_argument(
         "--options",
         nargs="+",
@@ -134,24 +127,6 @@ if __name__ == "__main__":
              "change to --cfg-options instead.",
     )
     args = parser.parse_args()
-    '''
-    CUDA_VISIBLE_DEVICES=0 python generate_response.py --cfg-path '/mnt/sdc1/junhong/proj/text_guide_attack/compared_methods/minigpt4/minigpt4_llama2_eval.yaml' \
-                                --data_path '/mnt/sdc1/junhong/proj/dataset/coco/annotations/coco_karpathy_test.json' \
-                                --image_path '/mnt/sdc1/junhong/proj/dataset/ms_coco/coco/images' \
-                                --gt_path '/mnt/sdc1/junhong/proj/dataset/coco_gt/coco' \
-                                --output_path 'Describe this image in one sentence_llama2_v1.json' \
-                                --prompt "Describe this image in one sentence." \
-                                --llama_model_path '/mnt/sdc1/ModelWarehouse/Llama-2-7b-chat-hf'
-    '''
-    '''
-    CUDA_VISIBLE_DEVICES=0 python generate_response.py --cfg-path '/mnt/sdc1/junhong/proj/text_guide_attack/compared_methods/minigpt4/minigptv2_eval.yaml' \
-                                --data_path '/mnt/sdc1/junhong/proj/dataset/coco/annotations/coco_karpathy_test.json' \
-                                --image_path '/mnt/sdc1/junhong/proj/dataset/ms_coco/coco/images' \
-                                --gt_path '/mnt/sdc1/junhong/proj/dataset/coco_gt/coco' \
-                                --output_path 'Describe this image in one sentence_v2.json' \
-                                --prompt "Describe this image in one sentence." \
-                                --llama_model_path '/mnt/sdc1/ModelWarehouse/Llama-2-7b-chat-hf'                       
-    '''
     print("output_path:", args.output_path)
     print(f"Loading MiniGPT-4 models..")
     cfg = Config(args)
@@ -166,12 +141,14 @@ if __name__ == "__main__":
     with open(args.data_path,"r",encoding="utf-8") as f:
         data = json.load(f)
     images_path = args.image_path
+
+    dir_name = os.path.dirname(args.output_path)
+    if not os.path.exists(dir_name):
+        os.makedirs(dir_name)
+
     result = []
-    for idx,i in enumerate(data[:1000]):
+    for idx,i in enumerate(data):
         image_path=os.path.join(images_path,i["image"])
-        # caption = chat_with_image_path_and_question(chat, CONV_VISION, image_path, "Describe this image in one sentence")
-        # Describe this image in detail.
-        # caption = chat_with_image_path_and_question(chat, CONV_VISION, image_path,"Describe this image in detail.")
         print(image_path)
         caption = chat_with_image_path_and_question(chat, CONV_VISION, image_path, args.prompt)
         try:
@@ -185,8 +162,8 @@ if __name__ == "__main__":
             }
         )
         print(idx,"-"*100)
-        # print(caption)
-        # break
+
+
         with open(args.output_path,"w",encoding='utf-8') as f:
             json.dump(result,f,ensure_ascii=False,indent=4)
 
