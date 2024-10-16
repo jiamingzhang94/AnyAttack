@@ -6,7 +6,6 @@ Evaluate the trained models on MiniGPT4:
     ```bash
     bash bash_minigpt4.sh
     ```
-
 2.**MiniGPT-v2** 
     ```bash
     bash bash_minigpt4v2.sh
