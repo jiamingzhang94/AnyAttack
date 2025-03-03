@@ -1,6 +1,6 @@
 # CVPR 2025 "[Anyattack: Towards Large-scale Self-supervised Adversarial Attacks on Vision-language Models](https://arxiv.org/abs/2410.05346)"
 
-This repository provides the official implementation of the paper "AnyAttack: Towards Large-scale Self-supervised Generation of Targeted Adversarial Examples for Vision-Language Models." Our method demonstrates high effectiveness across a wide range of commercial Vision-Language Models (VLMs).
+This repository provides the official implementation of the paper "Anyattack: Towards Large-scale Self-supervised Adversarial Attacks on Vision-language Models" Our method demonstrates high effectiveness across a wide range of commercial Vision-Language Models (VLMs).
 
 [**arXiv**](https://arxiv.org/abs/2410.05346) | [**Project Page**](https://jiamingzhang94.github.io/anyattack/) | [**HuggingFace**](https://huggingface.co/Jiaming94/anyattack)
 
@@ -11,7 +11,7 @@ This repository provides the official implementation of the paper "AnyAttack: To
 ## Key Features
 
 - **Large-scale**: Our approach is designed to work effectively on large-scale LAION-400M datasets.
-- **Self-supervised**: AnyAttack utilizes self-supervised learning techniques for generating targeted adversarial examples.
+- **Self-supervised**: AnyAttack utilizes self-supervised learning techniques for generating adversarial examples.
 
 ## Installation
 
