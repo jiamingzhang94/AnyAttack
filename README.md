@@ -1,6 +1,9 @@
-# AnyAttack: Official Code for "[AnyAttack: Towards Large-scale Self-supervised Generation of Targeted Adversarial Examples for Vision-Language Models](https://arxiv.org/abs/2410.05346)"
+# CVPR 2025 "[Anyattack: Towards Large-scale Self-supervised Adversarial Attacks on Vision-language Models](https://arxiv.org/abs/2410.05346)"
 
 This repository provides the official implementation of the paper "AnyAttack: Towards Large-scale Self-supervised Generation of Targeted Adversarial Examples for Vision-Language Models." Our method demonstrates high effectiveness across a wide range of commercial Vision-Language Models (VLMs).
+
+[**arXiv**](https://arxiv.org/abs/2410.05346) | [**Project Page**](https://jiamingzhang94.github.io/anyattack/) | [**HuggingFace**](https://huggingface.co/Jiaming94/anyattack)
+
 
 ![Example Results](example.jpg)
 *Figure: AnyAttack results on various commercial VLMs*
