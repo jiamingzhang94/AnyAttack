@@ -96,11 +96,12 @@ For more options and details, please refer to the `demo.py` file.
 If you find this work useful for your research, please consider citing:
 
 ```bibtex
-@article{zhang2024anyattack,
-      title={AnyAttack: Towards Large-scale Self-supervised Generation of Targeted Adversarial Examples for Vision-Language Models}, 
-      author={Jiaming Zhang and Junhong Ye and Xingjun Ma and Yige Li and Yunfan Yang and Jitao Sang and Dit-Yan Yeung},
-      year={2024},
-      journal={arXiv preprint arXiv:2410.05346},
+@inproceedings{zhang2025anyattack,
+  title={Anyattack: Towards Large-scale Self-supervised Adversarial Attacks on Vision-language Models},
+  author={Zhang, Jiaming and Ye, Junhong and Ma, Xingjun and Li, Yige and Yang, Yunfan and Chen, Yunhao and Sang, Jitao and Yeung, Dit-Yan},
+  booktitle={Proceedings of the Computer Vision and Pattern Recognition Conference},
+  pages={19900--19909},
+  year={2025}
 }
 ```
 
