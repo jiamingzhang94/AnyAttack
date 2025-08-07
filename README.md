@@ -34,6 +34,7 @@ This repository provides the official implementation of the paper "Anyattack: To
 
 - Download pretrained models and configuration files from [OneDrive](https://gohkust-my.sharepoint.com/:u:/g/personal/jmzhang_ust_hk/EdoO5KyVBH1FhPVr1kSYWh0B61oR9MYN9_EYmrCFBKnLsQ?e=IfkDmh).
 - Place the downloaded files in the project root directory.
+- **Note**: If you're unsure which weight file to use for your specific task or dataset, we recommend starting with `coco_cos.pt`.
 
 ### Step 3 (Optional): Training and Fine-tuning
 
